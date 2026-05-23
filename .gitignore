@@ -1,5 +1,5 @@
 # dependencies
-node_modules
+**/node_modules
 
 # logs
 logs
@@ -13,8 +13,8 @@ npm-debug.log*
 .DS_Store
 
 # build
-dist
-build
+**/dist
+**/build
 
 # prisma
 backend/prisma/dev.db
