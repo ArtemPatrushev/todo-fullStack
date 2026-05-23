@@ -1,0 +1,28 @@
+# dependencies
+node_modules
+
+# logs
+logs
+*.log
+npm-debug.log*
+
+# env
+.env
+
+# macOS
+.DS_Store
+
+# build
+dist
+build
+
+# prisma
+backend/prisma/dev.db
+backend/prisma/dev.db-journal
+
+# coverage
+coverage
+
+# IDE
+.vscode
+.idea
