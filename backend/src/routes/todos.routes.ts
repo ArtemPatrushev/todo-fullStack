@@ -5,12 +5,13 @@ import {
   updateTodo,
   deleteTodo,
 } from "../controllers/todos.controller";
+import { asyncHandler } from "../utils/async-handler";
 
 const router = Router();
 
-router.get("/", getTodos);
-router.post("/", createTodo);
-router.patch("/:id", updateTodo);
-router.delete("/:id", deleteTodo);
+router.get("/", asyncHandler(getTodos));
+router.post("/", asyncHandler(createTodo));
+router.patch("/:id", asyncHandler(updateTodo));
+router.delete("/:id", asyncHandler(deleteTodo));
 
 export default router;

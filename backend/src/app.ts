@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import todosRoutes from "./routes/todos.routes";
+import { errorMiddleware } from "./middlewares/error.middleware";
 
 const app = express();
 
@@ -12,5 +13,8 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/api/todos", todosRoutes);
+
+// ERROR MIDDLEWARE ВСЕГДА ПОСЛЕ ROUTES
+app.use(errorMiddleware);
 
 export default app;

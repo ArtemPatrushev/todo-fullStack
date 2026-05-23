@@ -6,7 +6,7 @@ import { z } from "zod";
 export const getTodos = async (req: Request, res: Response) => {
   const todos = await prisma.todo.findMany({
     orderBy: {
-      createdAt: "desc",
+      createdAt: "asc",
     },
   });
 

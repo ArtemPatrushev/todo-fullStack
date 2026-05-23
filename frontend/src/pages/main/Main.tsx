@@ -1,5 +1,6 @@
 import s from './Main.module.scss'
 import {useEffect, useState} from "react";
+import {SimpleStringInputModal} from "../../SimpleStringInputModal";
 
 type Todo = {
   id: number;
@@ -9,8 +10,10 @@ type Todo = {
 
 export const Main = () => {
   const [todos, setTodos] = useState<Todo[] | undefined>();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>('');
 
-  const onAddBtnClick = async () => {
+  const createTodo = async () => {
     try {
       const response = await fetch('http://localhost:4000/api/todos', {
         method: 'POST',
@@ -18,7 +21,7 @@ export const Main = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          title: 'New TODO',
+          title: inputValue,
         }),
       });
       if (!response.ok) {
@@ -27,12 +30,14 @@ export const Main = () => {
     } catch (err) {
       console.error(`Add TODO request error: ${err}`);
       throw err;
+    } finally {
+      setIsModalOpen(false);
     }
   }
 
   const onRemoveBtnClick = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/todos/${id}`, {
+      const response = await fetch(`http://localhost:4000/api/todos/123`, {
         method: 'DELETE',
       });
       if (!response.ok) {
@@ -86,9 +91,16 @@ export const Main = () => {
 
   return (
     <div className={s.todoApp}>
+      <SimpleStringInputModal
+        onClose={() => setIsModalOpen(false)}
+        isOpen={isModalOpen}
+        value={inputValue}
+        onChange={setInputValue}
+        onSubmit={createTodo}
+      />
       <div className={s.todoApp__header}>
         <p className={s.todoApp__header__logo}>TODO app</p>
-        <button onClick={onAddBtnClick} className={s.todoApp__header__btn}>Add TODO</button>
+        <button onClick={() => setIsModalOpen(true)} className={s.todoApp__header__btn}>Add TODO</button>
       </div>
       <div className={s.todoApp__content}>
         <h1 className={s.todoApp__content__title}>TODO Application</h1>
