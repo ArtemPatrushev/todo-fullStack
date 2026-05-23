@@ -12,7 +12,7 @@ export const Main = () => {
 
   const onAddBtnClick = async () => {
     try {
-      const response = await fetch('http://localhost:4000/todos', {
+      const response = await fetch('http://localhost:4000/api/todos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ export const Main = () => {
 
   const onRemoveBtnClick = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:4000/todos/${id}`, {
+      const response = await fetch(`http://localhost:4000/api/todos/${id}`, {
         method: 'DELETE',
       });
       if (!response.ok) {
@@ -46,7 +46,7 @@ export const Main = () => {
 
   const updateTodo = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:4000/todos/${id}`, {
+      const response = await fetch(`http://localhost:4000/api/todos/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ export const Main = () => {
 
   const getTodos = async () => {
     try {
-      const response = await fetch('http://localhost:4000/todos');
+      const response = await fetch('http://localhost:4000/api/todos');
       if (!response.ok) {
         console.log(`HTTP GET request error: ${response.status}`);
         throw new Error(`HTTP Error: ${response.status}`);

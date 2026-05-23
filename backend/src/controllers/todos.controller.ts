@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { prisma } from "../prisma";
+import {createTodoSchema, updateTodoSchema} from "../schemas/todo.schema";
+import { z } from "zod";
 
 export const getTodos = async (req: Request, res: Response) => {
   const todos = await prisma.todo.findMany({
@@ -12,15 +14,18 @@ export const getTodos = async (req: Request, res: Response) => {
 };
 
 export const createTodo = async (req: Request, res: Response) => {
-  const { title } = req.body;
+  const validationResult = createTodoSchema.safeParse(req.body);
 
-  if (!title) {
-    return res.status(400).json({ message: "Title is required" });
+  if (!validationResult.success) {
+    return res.status(400).json({
+      message: "Validation error",
+      errors: z.treeifyError(validationResult.error),
+    });
   }
 
   const todo = await prisma.todo.create({
     data: {
-      title,
+      title: validationResult.data.title,
     },
   });
 
@@ -28,20 +33,24 @@ export const createTodo = async (req: Request, res: Response) => {
 };
 
 export const updateTodo = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const validationResult = updateTodoSchema.safeParse(req.body);
 
-  if (!id || Array.isArray(id)) {
-    return res.status(400).json({ message: "Invalid todo id" });
+  if (!validationResult.success) {
+    return res.status(400).json({
+      message: "Validation error",
+      errors: z.treeifyError(validationResult.error),
+    });
   }
 
-  const { title, completed } = req.body;
+  const { id } = req.params;
+
+  if (id && Array.isArray(id)) {
+    return res.status(400).json({ message: "Invalid id format" });
+  }
 
   const todo = await prisma.todo.update({
     where: { id },
-    data: {
-      title,
-      completed,
-    },
+    data: validationResult.data,
   });
 
   res.json(todo);

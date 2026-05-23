@@ -1,0 +1,20 @@
+import { z } from "zod";
+
+export const createTodoSchema = z.object({
+  title: z
+    .string()
+    .trim()
+    .min(1, "Title is required")
+    .max(255, "Title is too long"),
+});
+
+export const updateTodoSchema = z.object({
+  title: z
+    .string()
+    .trim()
+    .min(1, "Title is required")
+    .max(255, "Title is too long")
+    .optional(),
+
+  completed: z.boolean().optional(),
+});
