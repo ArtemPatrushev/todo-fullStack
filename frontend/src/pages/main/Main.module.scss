@@ -1,0 +1,83 @@
+.todoApp {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  &__header {
+    height: 60px;
+    width: 100%;
+    background-color: #aa3bff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px;
+    &__logo {
+      font-size: 32px;
+      line-height: 38px;
+      color: #fff;
+    }
+    &__btn {
+      width: max-content;
+      height: 40px;
+      padding: 10px;
+      background-color: darkslateblue;
+      border: 1px solid lightgrey;
+      border-radius: 24px;
+      color: #fff;
+      font-size: 16px;
+      line-height: 18px;
+      cursor: pointer;
+    }
+  }
+  &__content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    &__title {
+      font-size: 32px;
+      line-height: 38px;
+      color: #aa3bff;
+    }
+    &__list {
+      padding: 20px;
+      width: 100%;
+      &__btn {
+        width: max-content;
+        height: 35px;
+        padding: 5px 10px;
+        background-color: darkred;
+        border: 1px solid lightgrey;
+        border-radius: 24px;
+        color: #fff;
+        font-size: 16px;
+        line-height: 18px;
+        cursor: pointer;
+        margin-left: auto;
+      }
+      &__updBtn {
+        width: max-content;
+        height: 35px;
+        padding: 5px 10px;
+        background-color: darkgreen;
+        border: 1px solid lightgrey;
+        border-radius: 24px;
+        color: #fff;
+        font-size: 16px;
+        line-height: 18px;
+        cursor: pointer;
+        margin-left: 15px;
+      }
+      & > li {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        color: darkblue;
+        padding-left: 15px;
+        width: 100%;
+        &:not(:last-child) {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}
